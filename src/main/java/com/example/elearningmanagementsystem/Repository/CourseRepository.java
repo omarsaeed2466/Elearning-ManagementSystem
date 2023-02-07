@@ -1,0 +1,35 @@
+package com.example.elearningmanagementsystem.Repository;
+
+import com.example.elearningmanagementsystem.model.Course;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+public interface CourseRepository extends CrudRepository<Course,Integer> {
+    public Course findByCoursename(String coursename);
+
+    public Course findByCourseid(String courseid);
+
+    public List<Course> findByInstructorname(String instructorname);
+
+    public List<Course> findByInstructorinstitution(String instructorinstitution);
+
+    public List<Course> findByEnrolleddate(String enrolleddate);
+
+    public List<Course> findByCoursetype(String coursetype);
+
+    public List<Course> findByYoutubeurl(String youtubeurl);
+
+    public List<Course> findByWebsiteurl(String websiteurl);
+
+    public List<Course> findBySkilllevel(String skilllevel);
+
+    public List<Course> findByLanguage(String language);
+    @Transactional
+    @Modifying
+    @Query(value = "update course set enrolledcount = ?1 where coursename = ?2",nativeQuery = true)
+    public void updateEnrolledcount(int enrolledcount, String coursename);
+}
